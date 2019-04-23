@@ -60,7 +60,7 @@ public class Blog {
 
 	@Override
 	public String toString() {
-		return "User [postid=" + id + ", title=" + title + ", content=" + content
+		return "Posts [postid=" + id + ", title=" + title + ", content=" + content
 				+ "]";
 	}
 
