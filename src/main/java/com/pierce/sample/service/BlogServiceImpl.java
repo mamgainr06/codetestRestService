@@ -2,7 +2,10 @@ package com.pierce.sample.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map.Entry;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,10 +24,10 @@ public class BlogServiceImpl implements BlogService{
 		{
 			postIdMap=new HashMap<Integer,Blog>();
 		// Creating some object of posts while initializing
-			Blog javaPost = new Blog(1, "Java Platforms","aaaaaaadsfzddv");
-			Blog angularPost = new Blog(2, "Angular7 UI Development","cgvfgvsfvsfdv");
-			Blog phythonPost = new Blog(3, "Phython-Emerging Technology","sdgfsfgvdfgbdbhdg");
-			Blog AiMlPost = new Blog(4, "AI/ML Scopes","sfgfvgfdvfsvfdv");
+			Blog javaPost = new Blog(1, "Java Platforms","Develop secure, portable, high-performance applications.");
+			Blog angularPost = new Blog(2, "Angular7 UI Development","Interactive Front End Development");
+			Blog phythonPost = new Blog(3, "Phython","Emerging Technology");
+			Blog AiMlPost = new Blog(4, "AI/ML Scopes","Future of IT");
 			Blog cloudPost = new Blog(5, "Cloud Computing","Microsoft Azure, Amazon web services and IBM cloud");
 			
 			postIdMap.put(1,javaPost);
@@ -68,7 +71,6 @@ public class BlogServiceImpl implements BlogService{
 	
 	public Blog addPosts(Blog blog)
 	{
-		//posts.setId(postIdMap.size()+1);
 		postIdMap.put(blog.getId(), blog);
 		System.out.println("posts added -->"+blog.toString());
 		return blog;
@@ -80,24 +82,19 @@ public class BlogServiceImpl implements BlogService{
 		return blog;
 	}
 	
-	public void deletePost(int id)
-	{
-		//for 
+	public void deletePost(int id) { 
 		postIdMap.remove(id);
+		Iterator<Entry<Integer, Blog>> it = postIdMap.entrySet().iterator();
+		while (it.hasNext()) {
+		    Blog blog = (Blog) it.next();
+		    if (blog.getId() == id) {
+		        it.remove();
+		    }
+		}
 	}
 
-	@Override
 	public boolean isPostExists(Blog blog) {
 		return getPostByTitle(blog.getTitle())!=null;
 	}
 
-/*	public void deletepostById(String id) {
-		
-		for (Iterator<Blog> iterator = postIdMap.iterator(); iterator.hasNext(); ) {
-		    Blog blog = iterator.next();
-		    if (blog.getId() == id) {
-		        iterator.remove();
-		    }
-		}
-	}*/
 }
